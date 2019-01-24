@@ -56,6 +56,7 @@ namespace WpfDesktopTool {
                     OpenedFilePath.Add(filename);
                 }
             }
+            RefreshGoButton();
         }
         private bool IsRepeated(string filename) {
             foreach(string file in OpenedFilePath) {
@@ -79,6 +80,14 @@ namespace WpfDesktopTool {
                 OpenedFilePath.Remove(((MusicItem)items[0]).MusicInfo.FullName);
                 LstMusic.Items.Remove(items[0]);
             }
+            RefreshGoButton();
+        }
+
+        private void RefreshGoButton() {
+            if (LstMusic.Items.Count > 0)
+                BtnGo.IsEnabled = true;
+            else
+                BtnGo.IsEnabled = false;
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e) {
@@ -111,8 +120,11 @@ namespace WpfDesktopTool {
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e) {
+        private void BtnGo_Click(object sender, RoutedEventArgs e) {
+            if (TxtOutputFolder.Text == "") return;
 
+            foreach(MusicItem item in LstMusic.Items)
+                item.Dump(TxtOutputFolder.Text, SwhCopyMp3.IsChecked.Value, SwhDeleteRaw.IsChecked.Value);
         }
     }
 }

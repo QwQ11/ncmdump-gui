@@ -10,5 +10,5 @@ ncmdump windows gui dev by vs2017
 
 use simple open DesktopTool.sln and build
 
-nuget dependent `taglib_sharp` `MaterialDesignInXamlToolkit`
+nuget dependent `taglib_sharp` `MaterialDesignInXamlToolkit` `Ookaii.Dialogs`
 

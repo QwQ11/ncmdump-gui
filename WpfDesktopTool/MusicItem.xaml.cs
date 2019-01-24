@@ -55,12 +55,16 @@ namespace WpfDesktopTool {
         public string MusicArtist { get => TxtArtist.Text; set => TxtArtist.Text = value; }
         public ImageSource MusicCover { get => ImgCover.Source; set => ImgCover.Source = value; }
 
+        public bool Dumpable { get => MusicInfo.Extension.ToLower() == ".ncm"; }
+        public bool IsFileClosed { get => this.State == StatesFlag.Compeleted || this.State == StatesFlag.Unconvertable; }
+
         private NeteaseCrypto NcmFile;
         private TagLib.File MediaFile;
 
         public MusicItem() {
             InitializeComponent();
         }
+
         public MusicItem(FileInfo fileInfo) {
             InitializeComponent();
             MusicInfo = fileInfo;
@@ -109,6 +113,28 @@ namespace WpfDesktopTool {
                 if (MediaFile != null) MediaFile.Dispose();
             };
          }
+
+        public void Dump(string outputPath, bool copy, bool deleteRaw) {
+            if (IsFileClosed) return;
+            try {
+                if (!Dumpable) {
+                    if (copy)
+                        File.Copy(MusicInfo.FullName, outputPath + "\\" + MusicInfo.Name, true);
+                }
+                else {
+                    NcmFile.Dump(outputPath);
+                    NcmFile.CloseFile();
+                    if (deleteRaw)
+                        File.Delete(MusicInfo.FullName);
+                }
+            }
+            catch {
+                this.SetStates(StatesFlag.Unconvertable);
+                //throw;
+            }
+
+            this.SetStates(StatesFlag.Compeleted);
+        }
 
         string ArtistArray2Plain(string[] artist) {
             var r = "";

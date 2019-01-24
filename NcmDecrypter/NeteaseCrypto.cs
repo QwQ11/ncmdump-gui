@@ -243,7 +243,7 @@ namespace NcmDecrypter {
             }
         }
 
-        public void Dump(string outputFolder)
+        public void Dump(string outputPath)
         {
             int n = 0x8000;
             double totalLen = _file.Length - _file.Position;
@@ -258,7 +258,7 @@ namespace NcmDecrypter {
             }
 
             string filePath = string.Format("{0}.{1}", convertName, Format);
-            filePath = outputFolder + filePath;
+            filePath = outputPath + "\\" + filePath;
 
             using (FileStream stream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write))
             {

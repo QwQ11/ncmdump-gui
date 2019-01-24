@@ -67,15 +67,16 @@
                 </Button>
             </DockPanel>
             <DockPanel Margin="10">
-                <TextBlock>Copy ingored file to output folder :</TextBlock>
+                <TextBlock>Copy ingored file to output folder</TextBlock>
                 <ToggleButton x:Name="SwhCopyMp3" HorizontalAlignment="Right" IsChecked="True"/>
             </DockPanel>
             <DockPanel Margin="10">
-                <TextBlock>Delete raw file after dumped :</TextBlock>
+                <TextBlock>Delete raw file after dumped</TextBlock>
                 <ToggleButton x:Name="SwhDeleteRaw" HorizontalAlignment="Right"/>
             </DockPanel>
         </StackPanel>
-        <Button Grid.Column="2" IsEnabled="False" Click="Button_Click"
+        <Button x:Name="BtnGo"
+                Grid.Column="2" IsEnabled="False" Click="BtnGo_Click"
                 VerticalAlignment="Bottom" Margin="70,0,80,20">Go</Button>
     </Grid>
 </Window>
